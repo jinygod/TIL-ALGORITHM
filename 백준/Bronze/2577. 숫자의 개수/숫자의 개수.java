@@ -1,23 +1,22 @@
-import java.util.Scanner;
- 
-public class Main {
-	public static void main(String[] args) {
- 
-		Scanner sc = new Scanner(System.in);
- 
-		int value = (sc.nextInt() * sc.nextInt() * sc.nextInt());
-		String str = Integer.toString(value);
-		sc.close();
-		
-		for (int i = 0; i < 10; i++) {
-			int count = 0;
-			for (int j = 0; j < str.length(); j++) {
-				if ((str.charAt(j) - '0') == i) {
-					count++;
-				}
-			}
-			System.out.println(count);
-		}
-		
-	}
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main{
+    public static void main(String[] args) throws IOException {
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int val = Integer.parseInt(br.readLine())*Integer.parseInt(br.readLine())*Integer.parseInt(br.readLine());
+        int[] arr = new int[10];
+        
+        while(val != 0){
+            arr[val%10]++;
+            val /= 10;
+        }
+        
+        for(int result : arr){
+            System.out.println(result);
+        }
+    }
 }
