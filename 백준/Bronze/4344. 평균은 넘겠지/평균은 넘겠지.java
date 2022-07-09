@@ -1,23 +1,30 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
  
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		int[] arr;
 		
-		int testcase = sc.nextInt();
+		int testcase = Integer.parseInt(br.readLine());
+		StringTokenizer st;
 		
 		for(int i = 0 ; i < testcase ; i++) {
  
-			int N = sc.nextInt();	//학생 수 
+			st = new StringTokenizer(br.readLine()," "); // 학생 수 및 성적 입력
+			
+			
+			int N = Integer.parseInt(st.nextToken());	//학생 수 
 			arr = new int[N];
 			
 			double sum = 0;	// 성적 누적 합 변수 
 			
 			// 성적 입력부분 
 			for(int j = 0 ; j < N ; j++) {
-				int val = sc.nextInt();	// 성적 입력 
+				int val = Integer.parseInt(st.nextToken());	// 성적 저장
 				arr[j] = val;
 				sum += val;	// 성적 누적 합 
 			}
@@ -36,7 +43,6 @@ public class Main {
 			
 	
 		}
-		sc.close();
 	}
 	
 }
