@@ -16,7 +16,7 @@ public class Main {
 		if (C <= B) {
 			System.out.println("-1");
 		} 
-		else {
+		else { 
 			System.out.println((A/(C-B))+1);
 		}
 	}
