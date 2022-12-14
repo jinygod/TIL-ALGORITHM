@@ -15,7 +15,6 @@ public class Main {
 		BigInteger B = new BigInteger(st.nextToken());
 		
 		A = A.add(B);
-		
 		System.out.println(A.toString());
 	}
 }
