@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.StringTokenizer;
 
-class Planet{
+class Planet{ 
     int x;
     int y;
     int radius;
