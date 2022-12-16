@@ -13,7 +13,7 @@ public class Main {
 			while (N % i == 0) {
 				sb.append(i).append('\n');
 				N /= i;
-			}
+			} 
 		}
 		if (N != 1) {
 			sb.append(N);
