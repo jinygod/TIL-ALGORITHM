@@ -9,7 +9,7 @@ public class Main {
  
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		int T = Integer.parseInt(br.readLine());
+		int T = Integer.parseInt(br.readLine()); 
 		
 		int max = Integer.MIN_VALUE;
 		int min = Integer.MAX_VALUE;
