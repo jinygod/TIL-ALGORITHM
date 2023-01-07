@@ -26,7 +26,7 @@ public class Main {
 
             st = new StringTokenizer(br.readLine());
             for (int i = 1; i <= k; i++) {
-                novel[i] = Integer.parseInt(st.nextToken());
+                novel[i] = Integer.parseInt(st.nextToken()); 
                 sum[i] = sum[i - 1] + novel[i];
             }
 
