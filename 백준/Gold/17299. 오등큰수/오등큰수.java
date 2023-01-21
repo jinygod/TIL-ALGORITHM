@@ -5,7 +5,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new 	OutputStreamWriter(System.out));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
 		// 배열의 입력
 		int num = Integer.parseInt(bf.readLine());
@@ -13,6 +13,19 @@ public class Main {
 		
 		// 결과값을 넣을 배열
 		int[] result = new int[num];
+		
+		Stack<Integer> stack = new Stack<Integer>();
+		
+		for(int i = 0; i< num; i++{
+			if(stack.isEmpty())
+				stack.push(i);
+			while(!stack.isEmpty() && nums_count[nums[stack.peek()]] < nums_count[nums[i]]){
+				result[stack.pop()] = nums[i];
+			}
+			stack.push(i);
+		}
+		    while(!stack.isEmpty())
+		    	result[stack.pop()] = -1;
 		
 		// 입력된 숫자를 담는 배열
 		int[] nums = new int[num];
