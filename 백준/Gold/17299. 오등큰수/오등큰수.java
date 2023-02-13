@@ -16,7 +16,7 @@ public class Main {
 		
 		Stack<Integer> stack = new Stack<Integer>();
 		
-		for(int i = 0; i< num; i++{
+		for(int i = 0; i< num; i++ {
 			if(stack.isEmpty())
 				stack.push(i);
 			while(!stack.isEmpty() && nums_count[nums[stack.peek()]] < nums_count[nums[i]]){
