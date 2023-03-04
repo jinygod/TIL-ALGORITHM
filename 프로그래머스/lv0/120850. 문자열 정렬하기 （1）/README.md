@@ -1,6 +1,6 @@
 # [level 0] 문자열 정렬하기 (1) - 120850 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120850?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120850) 
 
 ### 성능 요약
 
