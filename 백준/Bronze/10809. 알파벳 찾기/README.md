@@ -1,4 +1,4 @@
-# [Bronze V] 알파벳 찾기 - 10809 
+# [Bronze II] 알파벳 찾기 - 10809 
 
 [문제 링크](https://www.acmicpc.net/problem/10809) 
 
@@ -8,7 +8,11 @@
 
 ### 분류
 
-구현(implementation), 문자열(string)
+구현, 문자열
+
+### 제출 일자
+
+2022년 7월 18일 17:31:11
 
 ### 문제 설명
 
