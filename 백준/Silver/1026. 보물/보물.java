@@ -1,42 +1,44 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.StringTokenizer;
- 
+import java.util.*;
+import java.io.*;
+
 public class Main {
- 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
- 
+
+        // 입력 처리
         int N = Integer.parseInt(br.readLine());
         int[] A = new int[N];
-        st = new StringTokenizer(br.readLine());
+        int[] B = new int[N];
+
+        // A 배열 입력
+        String[] input1 = br.readLine().split(" ");
         for (int i = 0; i < N; i++) {
-            A[i] = Integer.parseInt(st.nextToken());
+            A[i] = Integer.parseInt(input1[i]);
         }
-        Arrays.sort(A); // A를 오름차순으로 정렬
- 
-        Integer[] B = new Integer[N];
-        st = new StringTokenizer(br.readLine());
+
+        // B 배열 입력
+        String[] input2 = br.readLine().split(" ");
         for (int i = 0; i < N; i++) {
-            B[i] = Integer.parseInt(st.nextToken());
+            B[i] = Integer.parseInt(input2[i]);
         }
-        Arrays.sort(B, Comparator.reverseOrder()); // B를 내림차순으로 정렬
- 
-        int ans = 0;
-        for (int i = 0; i < N; i++) { // A의 가장 작은 값과 B의 가장 큰 값을 곱해서 더해 나감.
-            ans += A[i] * B[i];
+
+        // A는 오름차순, B는 내림차순 정렬
+        Arrays.sort(A);
+        Arrays.sort(B);
+        
+        // B 배열 내림차순 정렬 (reverse)
+        for (int i = 0; i < N / 2; i++) {
+            int temp = B[i];
+            B[i] = B[N - 1 - i];
+            B[N - 1 - i] = temp;
         }
- 
-        bw.write(ans + "\n");
-        bw.flush();
-        bw.close();
-        br.close();
+
+        // S 계산
+        int S = 0;
+        for (int i = 0; i < N; i++) {
+            S += A[i] * B[i];
+        }
+
+        System.out.println(S);
     }
- 
 }
