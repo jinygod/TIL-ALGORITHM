@@ -1,86 +1,55 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.StringTokenizer;
- 
-import java.util.Arrays;
- 
+import java.util.*;
+import java.io.*;
+
 public class Main {
-	
-	public static int[] house;
-	
-	public static void main(String[] args) throws IOException {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		StringTokenizer st = new StringTokenizer(br.readLine()," ");
-		
-		int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
-		
-		house = new int[N];
-		
-		for(int i = 0; i < N; i++) {
-			house[i] = Integer.parseInt(br.readLine());
-		}
-		
-		Arrays.sort(house);	// 이분탐색을 하기 위해선 반드시 정렬 되어있어야 한다.
-		
-		
-		int lo = 1;		// 최소 거리가 가질 수 있는 최솟값
-		int hi = house[N - 1] - house[0] + 1;	// 최소 거리가 가질 수 있는 최댓값
-		
-		while(lo < hi) {	// Upper Bound 형식
-			
-			int mid = (hi + lo) / 2;
-			
-			/*
-			 * mid 거리에 대해 설치 가능한 공유기 개수가 M 개수에 못미치면
-			 * 거리를 좁혀야 하기 때문에 hi 를 줄인다.
-			 */
-			if(canInstall(mid) < M) {
-				hi = mid;
-			}
-			else {
-				/**
-				 * 설치 가능한 공유기 개수가 M 개수보다 크거나 같으면
-				 * 거리를 벌리면서 최소거리가 가질 수 있는 최대 거리를
-				 * 찾아낸다.
-				 */
-				lo = mid + 1;
-			}
-		}
-		
-		/*
-		 *  Upper Bound는 탐색 값을 초과하는 첫 번째 값을 가리키므로, 
-		 *  1을 빼준 값이 조건식을 만족하는 최댓값이 된다.
-		 */
-		System.out.println(lo - 1);
-	}
-	
-	// distance에 대해 설치 가능한 공유기 개수를 찾는 메소드
-	public static int canInstall(int distance) {
-		
-		// 첫 번째 집은 무조건 설치한다고 가정
-		int count = 1;
-		int lastLocate = house[0];
-		
-		for(int i = 1; i < house.length; i++) {
-			int locate = house[i];
-			
-			/*
-			 *  현재 탐색하는 집의 위치와 직전에 설치했던 집의 위치간 거리가
-			 *  최소 거리(distance)보다 크거나 같을 때 공유기 설치 개수를 늘려주고
-			 *  마지막 설치 위치를 갱신해준다. 
-			 */
-			if(locate - lastLocate >= distance) {
-				count++;
-				lastLocate = locate;
-			}
-		}
-		return count;
-		
-	}
-	
-	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // 입력값 처리
+        String[] input1 = br.readLine().split(" ");
+        int N = Integer.parseInt(input1[0]);
+        int C = Integer.parseInt(input1[1]);
+
+        long[] location = new long[N];
+        for (int i = 0; i < N; i++) {
+            location[i] = Long.parseLong(br.readLine());
+        }
+
+        // 좌표 정렬
+        Arrays.sort(location);
+
+        // 이분 탐색 범위 설정
+        long low = 1; // 최소 거리
+        long high = location[N - 1] - location[0]; // 최대 거리
+        long result = 0;
+
+        while (low <= high) {
+            long mid = (low + high) / 2;
+
+            if (canPlace(location, C, mid)) {
+                result = mid; // 가능한 거리 갱신
+                low = mid + 1; // 더 큰 거리 탐색
+            } else {
+                high = mid - 1; // 더 작은 거리 탐색
+            }
+        }
+
+        System.out.println(result);
+    }
+
+    // 공유기를 mid 거리 이상으로 설치할 수 있는지 판단
+    private static boolean canPlace(long[] location, int C, long mid) {
+        int count = 1; // 첫 번째 집에 공유기 설치
+        long lastPlaced = location[0]; // 마지막으로 설치한 집
+
+        for (int i = 1; i < location.length; i++) {
+            if (location[i] - lastPlaced >= mid) {
+                count++; // 공유기 추가 설치
+                lastPlaced = location[i]; // 현재 집에 설치
+                if (count == C) return true; // 공유기 설치 완료
+            }
+        }
+
+        return false; // 공유기를 모두 설치하지 못한 경우
+    }
 }
