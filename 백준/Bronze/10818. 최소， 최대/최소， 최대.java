@@ -1,20 +1,30 @@
-import java.util.Arrays;
-import java.util.Scanner;
- 
-public class Main {
-	public static void main(String[] args) {
-    
-		Scanner sc = new Scanner(System.in);
+import java.io.*;
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
-		int N = sc.nextInt();
-		int[] arr = new int[N];
+        int N = Integer.parseInt(br.readLine());
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
         
-		for (int i = 0; i < N; i++) {
-			arr[i] = sc.nextInt();
-		}
+        String[] input = br.readLine().split(" ");
+        int[] arr = new int[N];
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = Integer.parseInt(input[i]);
+        }
         
-		sc.close();
-		Arrays.sort(arr);
-		System.out.print(arr[0] + " " + arr[N - 1]);
-	}
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] < min){
+                min = arr[i];
+            }
+            if(arr[i] > max){
+                max = arr[i];
+            }
+        }
+        
+        System.out.print(min + " " + max);
+        
+    }
 }
