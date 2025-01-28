@@ -1,77 +1,60 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.StringTokenizer;
- 
- 
+import java.util.*;
+import java.io.*;
+
 public class Main {
-	
-	// 색상 카운트 할 변수 및 색종이(board)
-	public static int white = 0;
-	public static int blue = 0;
-	public static int[][] board;
- 
-	public static void main(String[] args) throws IOException {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		int N = Integer.parseInt(br.readLine());
-		
-		board = new int[N][N];
-		
-		StringTokenizer st;
-		
-		for(int i = 0; i < N; i++) {
-			st = new StringTokenizer(br.readLine(), " ");
-			
-			for(int j = 0; j < N; j++) {
-				board[i][j] = Integer.parseInt(st.nextToken());
-			}
-		}
-		
-		partition(0, 0, N);
-		
-		System.out.println(white);
-		System.out.println(blue);
-		
-	}
-	
-	public static void partition(int row, int col, int size) {
-		
-		//
-		if(colorCheck(row, col, size)) {
-			if(board[row][col] == 0) {
-				white++;
-			}
-			else {
-				blue++;
-			}
-			return;
-		}
-		
-		int newSize = size / 2;	// 절반 사이즈
-		// 재귀 호출
-		partition(row, col, newSize);						// 2사분면
-		partition(row, col + newSize, newSize);				// 1사분면
-		partition(row + newSize, col, newSize);				// 3사분면
-		partition(row + newSize, col + newSize, newSize);	// 4사분면
-	}
-	
-	
-	// 현재 파티션의 컬러가 같은지 체크한다.
-	public static boolean colorCheck(int row, int col, int size) {
-	
-		int color = board[row][col];	// 첫 번째 원소를 기준으로 검사
-		
-		for(int i = row; i < row + size; i++) {
-			for(int j = col; j < col + size; j++) {
-				// 색상이 같이 않다면 false를 리턴 
-				if(board[i][j] != color) {
-					return false;
-				}
-			}
-		}
-		// 검사가 모두 통과했다는 의미이므로 true 리턴
-		return true;
-	}
+    public static int white = 0; // 흰색 종이 개수
+    public static int blue = 0; // 파란색 종이 개수
+
+    public static void dfs(int[][] area, int x, int y, int size) {
+        // 현재 영역이 모두 같은 색인지 확인
+        if (isSameColor(area, x, y, size)) {
+            if (area[x][y] == 0) {
+                white++;
+            } else {
+                blue++;
+            }
+            return;
+        }
+
+        // 영역을 4등분하여 재귀적으로 처리
+        int newSize = size / 2;
+        dfs(area, x, y, newSize); // 1사분면
+        dfs(area, x, y + newSize, newSize); // 2사분면
+        dfs(area, x + newSize, y, newSize); // 3사분면
+        dfs(area, x + newSize, y + newSize, newSize); // 4사분면
+    }
+
+    // 현재 영역이 모두 같은 색인지 확인하는 함수
+    public static boolean isSameColor(int[][] area, int x, int y, int size) {
+        int color = area[x][y];
+        for (int i = x; i < x + size; i++) {
+            for (int j = y; j < y + size; j++) {
+                if (area[i][j] != color) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[][] area = new int[N][N];
+
+        // 입력 처리
+        for (int i = 0; i < N; i++) {
+            String[] temp = br.readLine().split(" ");
+            for (int j = 0; j < N; j++) {
+                area[i][j] = Integer.parseInt(temp[j]);
+            }
+        }
+
+        // 재귀 호출 시작
+        dfs(area, 0, 0, N);
+
+        // 결과 출력
+        System.out.println(white); // 흰색 종이 개수
+        System.out.println(blue);  // 파란색 종이 개수
+    }
 }
